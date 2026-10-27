@@ -1,0 +1,119 @@
+{
+  "name": "深蓝额度",
+  "id": "362155012",
+  "previewImg": "preview",
+  "faceStyleCount": 1,
+  "faces": [
+    {
+      "name": "样式1",
+      "imageDir": "images",
+      "elements": [
+        {
+          "x": 0,
+          "y": 0,
+          "type": "element",
+          "image": "image_0001"
+        },
+        {
+          "x": 28,
+          "y": 330,
+          "prop7Index": 0,
+          "prop7Length": 20,
+          "prop7Raw": "000000110000E8030100000300000000000000",
+          "dataSrc": "0A11",
+          "type": "widge_dignum",
+          "showZero": false,
+          "align": 1,
+          "showCount": 1,
+          "spacing": 0,
+          "imageList": [
+            "imagelist_0000_0000",
+            "imagelist_0000_0001",
+            "imagelist_0000_0002"
+          ]
+        },
+        {
+          "x": 65,
+          "y": 330,
+          "prop7Index": 1,
+          "prop7Length": 20,
+          "prop7Raw": "000000110000E8030100000300000000000000",
+          "dataSrc": "0911",
+          "type": "widge_dignum",
+          "showZero": false,
+          "align": 1,
+          "showCount": 1,
+          "spacing": 0,
+          "imageList": [
+            "imagelist_0001_0000",
+            "imagelist_0001_0001",
+            "imagelist_0001_0002",
+            "imagelist_0001_0003",
+            "imagelist_0001_0004",
+            "imagelist_0001_0005",
+            "imagelist_0001_0006",
+            "imagelist_0001_0007",
+            "imagelist_0001_0008",
+            "imagelist_0001_0009"
+          ]
+        },
+        {
+          "x": 115,
+          "y": 330,
+          "prop7Index": 2,
+          "prop7Length": 20,
+          "prop7Raw": "000000110000E8030100000300000000000000",
+          "dataSrc": "1211",
+          "type": "widge_dignum",
+          "showZero": false,
+          "align": 1,
+          "showCount": 1,
+          "spacing": 0,
+          "imageList": [
+            "imagelist_0002_0000",
+            "imagelist_0002_0001",
+            "imagelist_0002_0002",
+            "imagelist_0002_0003",
+            "imagelist_0002_0004",
+            "imagelist_0002_0005"
+          ]
+        },
+        {
+          "x": 152,
+          "y": 330,
+          "prop7Index": 3,
+          "prop7Length": 20,
+          "prop7Raw": "000000110000E8030100000300000000000000",
+          "dataSrc": "1111",
+          "type": "widge_dignum",
+          "showZero": false,
+          "align": 1,
+          "showCount": 1,
+          "spacing": 0,
+          "imageList": [
+            "imagelist_0003_0000",
+            "imagelist_0003_0001",
+            "imagelist_0003_0002",
+            "imagelist_0003_0003",
+            "imagelist_0003_0004",
+            "imagelist_0003_0005",
+            "imagelist_0003_0006",
+            "imagelist_0003_0007",
+            "imagelist_0003_0008",
+            "imagelist_0003_0009"
+          ]
+        }
+      ],
+      "imageDefs": [
+        1
+      ],
+      "imageListDefs": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "extraProp7": []
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+[
+ {
+  "name": "idle",
+  "title": "待机",
+  "frames": 19,
+  "fps": 8,
+  "loop": true,
+  "w": 204,
+  "h": 246
+ },
+ {
+  "name": "laugh",
+  "title": "捧腹大笑",
+  "frames": 25,
+  "fps": 10,
+  "loop": false,
+  "w": 204,
+  "h": 246
+ },
+ {
+  "name": "listen",
+  "title": "倾听",
+  "frames": 22,
+  "fps": 10,
+  "loop": false,
+  "w": 204,
+  "h": 246
+ },
+ {
+  "name": "lie",
+  "title": "躺平",
+  "frames": 5,
+  "fps": 6,
+  "loop": true,
+  "w": 204,
+  "h": 246
+ }
+]

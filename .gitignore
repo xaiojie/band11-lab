@@ -1,0 +1,24 @@
+# macOS
+.DS_Store
+.AppleDouble
+
+# 依赖
+node_modules/
+__pycache__/
+*.pyc
+
+# 第三方素材 / 源码（体积大，按 README 自行 clone）
+frog_src/
+pet_src/
+
+# 固件与逆向中间产物
+_research/
+
+# 官方表盘样本（小米版权资源，不入库）
+watchface/samples/
+
+# 构建产物
+*/app/dist/
+*/app/build/
+*.debug.rpk
+*.release.rpk

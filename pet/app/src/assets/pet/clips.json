@@ -1,0 +1,146 @@
+[
+  {
+    "name": "idle",
+    "frames": 24,
+    "fps": 8,
+    "loop": true,
+    "w": 170,
+    "h": 209
+  },
+  {
+    "name": "happy",
+    "frames": 14,
+    "fps": 12,
+    "loop": false,
+    "w": 170,
+    "h": 209
+  },
+  {
+    "name": "shy",
+    "frames": 14,
+    "fps": 12,
+    "loop": false,
+    "w": 170,
+    "h": 209
+  },
+  {
+    "name": "pat",
+    "frames": 14,
+    "fps": 12,
+    "loop": false,
+    "w": 170,
+    "h": 209
+  },
+  {
+    "name": "eat",
+    "frames": 18,
+    "fps": 10,
+    "loop": false,
+    "w": 170,
+    "h": 209
+  },
+  {
+    "name": "sleep",
+    "frames": 20,
+    "fps": 8,
+    "loop": true,
+    "w": 170,
+    "h": 209
+  },
+  {
+    "name": "token",
+    "frames": 18,
+    "fps": 10,
+    "loop": false,
+    "w": 170,
+    "h": 143
+  },
+  {
+    "name": "code",
+    "frames": 18,
+    "fps": 10,
+    "loop": false,
+    "w": 170,
+    "h": 209
+  },
+  {
+    "name": "yawn",
+    "frames": 20,
+    "fps": 10,
+    "loop": false,
+    "w": 170,
+    "h": 209
+  },
+  {
+    "name": "brush",
+    "frames": 20,
+    "fps": 10,
+    "loop": false,
+    "w": 170,
+    "h": 209
+  },
+  {
+    "name": "stretch",
+    "frames": 20,
+    "fps": 10,
+    "loop": false,
+    "w": 170,
+    "h": 209
+  },
+  {
+    "name": "wake",
+    "frames": 18,
+    "fps": 10,
+    "loop": false,
+    "w": 170,
+    "h": 209
+  },
+  {
+    "name": "shock",
+    "frames": 18,
+    "fps": 10,
+    "loop": false,
+    "w": 170,
+    "h": 209
+  },
+  {
+    "name": "dance1",
+    "frames": 24,
+    "fps": 10,
+    "loop": false,
+    "w": 170,
+    "h": 209
+  },
+  {
+    "name": "dance2",
+    "frames": 24,
+    "fps": 10,
+    "loop": false,
+    "w": 170,
+    "h": 209
+  },
+  {
+    "name": "cat",
+    "frames": 20,
+    "fps": 10,
+    "loop": false,
+    "w": 170,
+    "h": 209
+  },
+  {
+    "name": "rubik",
+    "frames": 20,
+    "fps": 10,
+    "loop": false,
+    "w": 170,
+    "h": 209
+  },
+  {
+    "name": "whale",
+    "frames": 24,
+    "fps": 10,
+    "loop": false,
+    "w": 170,
+    "h": 148
+  }
+]

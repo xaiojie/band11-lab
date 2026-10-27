@@ -1,0 +1,34 @@
+{
+  "package": "com.jay.band11pet",
+  "name": "腕上桌宠",
+  "versionName": "0.1.0",
+  "versionCode": 1,
+  "minAPILevel": 2,
+  "icon": "/common/images/icon.png",
+  "deviceTypeList": [
+    "watch"
+  ],
+  "features": [
+    {
+      "name": "system.storage"
+    },
+    {
+      "name": "system.vibrator"
+    }
+  ],
+  "config": {
+    "logLevel": "info",
+    "designWidth": 212
+  },
+  "display": {
+    "backgroundColor": "#080E1A"
+  },
+  "router": {
+    "entry": "pages/index",
+    "pages": {
+      "pages/index": {
+        "component": "index"
+      }
+    }
+  }
+}

@@ -1,0 +1,105 @@
+{
+  "name": "长续航表盘",
+  "id": "362150007",
+  "previewImg": "preview",
+  "faceStyleCount": 1,
+  "faces": [
+    {
+      "name": "样式1",
+      "imageDir": "images",
+      "elements": [
+        {
+          "x": 18,
+          "y": 164,
+          "prop9Index": 0,
+          "prop9Length": 76,
+          "jumpRaw": "00000000000000000000000000000000000000000000000000000000000000000000000000000000030000500000000000000007000000000100000200000000010000073800B00040311000",
+          "jumpName": "",
+          "jumpCode": "03000050",
+          "type": "element"
+        },
+        {
+          "x": 91,
+          "y": 365,
+          "type": "element",
+          "image": "image_0002"
+        },
+        {
+          "x": 106,
+          "y": 403,
+          "prop7Index": 2,
+          "prop7Length": 20,
+          "prop7Raw": "082105120000E803010000030000000000000000",
+          "dataSrc": "082105",
+          "type": "widge_dignum",
+          "showZero": false,
+          "align": 2,
+          "showCount": 5,
+          "spacing": 0,
+          "imageList": [
+            "imagelist_0001_0000",
+            "imagelist_0001_0001",
+            "imagelist_0001_0002",
+            "imagelist_0001_0003",
+            "imagelist_0001_0004",
+            "imagelist_0001_0005",
+            "imagelist_0001_0006",
+            "imagelist_0001_0007",
+            "imagelist_0001_0008",
+            "imagelist_0001_0009"
+          ]
+        },
+        {
+          "x": 18,
+          "y": 235,
+          "prop7Index": 3,
+          "prop7Length": 16,
+          "prop7Raw": "10130020000000000200000300000000",
+          "dataSrc": "1013",
+          "type": "widge_imagelist",
+          "imageList": [
+            "imagelist_0002_0000",
+            "imagelist_0002_0001"
+          ],
+          "imageIndexList": [
+          ]
+        },
+        {
+          "x": 76,
+          "y": 235,
+          "prop7Index": 4,
+          "prop7Length": 16,
+          "prop7Raw": "18130020000000000300000300000000",
+          "dataSrc": "1813",
+          "type": "widge_imagelist",
+          "imageList": [
+            "imagelist_0003_0000",
+            "imagelist_0003_0001"
+          ],
+          "imageIndexList": [
+          ]
+        }
+      ],
+      "imageDefs": [
+        1,
+        2
+      ],
+      "imageListDefs": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "extraProp7": [
+        {
+          "idx": 0,
+          "raw": "081102150000E803000000030000000000000000"
+        },
+        {
+          "idx": 1,
+          "raw": "101102150000E803000000030000000000000000"
+        }
+      ]
+    }
+  ]
+}

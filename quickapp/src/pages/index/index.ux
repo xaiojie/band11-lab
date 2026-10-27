@@ -1,0 +1,127 @@
+<template>
+  <div class="page">
+    <text class="brand">BAND 11 LAB</text>
+    <text class="clock">{{clock}}</text>
+    <text class="label">计数</text>
+    <text class="count">{{count}}</text>
+    <input class="primary" type="button" value="+1" onclick="bump" />
+    <div class="row">
+      <input class="ghost" type="button" value="震动" onclick="buzz" />
+      <input class="ghost" type="button" value="设置" onclick="goSettings" />
+    </div>
+    <text class="foot">点按手环屏幕操作</text>
+  </div>
+</template>
+
+<style>
+.page {
+  width: 212px;
+  height: 520px;
+  padding-top: 40px;
+  box-sizing: border-box;
+  flex-direction: column;
+  align-items: center;
+  background-color: #000000;
+}
+.brand {
+  font-size: 12px;
+  color: #7a7a7a;
+}
+.clock {
+  margin-top: 6px;
+  font-size: 40px;
+  font-weight: bold;
+  color: #ffffff;
+}
+.label {
+  margin-top: 20px;
+  font-size: 12px;
+  color: #7a7a7a;
+}
+.count {
+  margin-top: 2px;
+  font-size: 52px;
+  font-weight: bold;
+  color: #2ee6d6;
+}
+.primary {
+  margin-top: 16px;
+  width: 120px;
+  height: 40px;
+  border-radius: 20px;
+  background-color: #2ee6d6;
+  color: #000000;
+  font-size: 18px;
+  text-align: center;
+}
+.row {
+  margin-top: 12px;
+  flex-direction: row;
+}
+.ghost {
+  margin-left: 6px;
+  margin-right: 6px;
+  width: 84px;
+  height: 36px;
+  border-radius: 18px;
+  background-color: #1a1a1a;
+  color: #d0d0d0;
+  font-size: 15px;
+  text-align: center;
+}
+.foot {
+  margin-top: 28px;
+  font-size: 11px;
+  color: #5a5a5a;
+}
+</style>
+
+<script>
+import router from '@system.router'
+import storage from '@system.storage'
+import vibrator from '@system.vibrator'
+
+export default {
+  private: {
+    clock: '--:--',
+    count: 0
+  },
+  onInit() {
+    this.loadCount()
+    this.updateClock()
+    this.timer = setInterval(() => this.updateClock(), 1000)
+  },
+  onDestroy() {
+    if (this.timer) {
+      clearInterval(this.timer)
+      this.timer = null
+    }
+  },
+  updateClock() {
+    const d = new Date()
+    const hh = ('0' + d.getHours()).slice(-2)
+    const mm = ('0' + d.getMinutes()).slice(-2)
+    this.clock = hh + ':' + mm
+  },
+  loadCount() {
+    storage.get({
+      key: 'count',
+      default: '0',
+      success: (v) => {
+        this.count = parseInt(v, 10) || 0
+      }
+    })
+  },
+  bump() {
+    this.count = this.count + 1
+    storage.set({ key: 'count', value: String(this.count) })
+    vibrator.vibrate({ mode: 'short' })
+  },
+  buzz() {
+    vibrator.vibrate({ mode: 'long' })
+  },
+  goSettings() {
+    router.push({ uri: '/settings' })
+  }
+}
+</script>

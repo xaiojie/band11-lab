@@ -1,0 +1,95 @@
+<template>
+  <div class="page">
+    <text class="title">设置</text>
+    <div class="card">
+      <text class="k">包名</text>
+      <text class="v">com.jay.band11hello</text>
+    </div>
+    <div class="card">
+      <text class="k">设计基准</text>
+      <text class="v">212 x 520</text>
+    </div>
+    <div class="card">
+      <text class="k">版本</text>
+      <text class="v">{{version}}</text>
+    </div>
+    <div class="card">
+      <text class="k">计数</text>
+      <text class="v">{{count}}</text>
+    </div>
+    <input class="back" type="button" value="返回" onclick="goBack" />
+  </div>
+</template>
+
+<style>
+.page {
+  width: 212px;
+  height: 520px;
+  padding-top: 40px;
+  box-sizing: border-box;
+  flex-direction: column;
+  align-items: center;
+  background-color: #000000;
+}
+.title {
+  font-size: 22px;
+  font-weight: bold;
+  color: #ffffff;
+  margin-bottom: 16px;
+}
+.card {
+  width: 172px;
+  height: 44px;
+  box-sizing: border-box;
+  margin-bottom: 8px;
+  padding-left: 12px;
+  padding-right: 12px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 12px;
+  background-color: #141414;
+}
+.k {
+  font-size: 13px;
+  color: #7a7a7a;
+}
+.v {
+  font-size: 13px;
+  color: #e0e0e0;
+}
+.back {
+  margin-top: 14px;
+  width: 120px;
+  height: 40px;
+  border-radius: 20px;
+  background-color: #1a1a1a;
+  color: #d0d0d0;
+  font-size: 16px;
+  text-align: center;
+}
+</style>
+
+<script>
+import router from '@system.router'
+import storage from '@system.storage'
+
+export default {
+  private: {
+    version: '0.1.0',
+    count: 0
+  },
+  onInit() {
+    storage.get({
+      key: 'count',
+      default: '0',
+      success: (v) => {
+        this.count = parseInt(v, 10) || 0
+      }
+    })
+  },
+  goBack() {
+    router.back()
+  }
+}
+</script>

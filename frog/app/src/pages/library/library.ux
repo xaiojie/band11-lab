@@ -1,0 +1,133 @@
+<template>
+  <div class="page">
+    <text class="title">动画库</text>
+    <text class="sub">点一个，回首页播给你看</text>
+
+    <div class="grid">
+      <div class="row">
+        <div class="card" onclick="pickIdle">
+          <image class="thumb" src="/assets/frog/idle/f_000.png"></image>
+          <text class="name">待机</text>
+        </div>
+        <div class="card" onclick="pickLaugh">
+          <image class="thumb" src="/assets/frog/laugh/f_006.png"></image>
+          <text class="name">捧腹大笑</text>
+        </div>
+      </div>
+      <div class="row">
+        <div class="card" onclick="pickListen">
+          <image class="thumb" src="/assets/frog/listen/f_006.png"></image>
+          <text class="name">倾听</text>
+        </div>
+        <div class="card" onclick="pickLie">
+          <image class="thumb" src="/assets/frog/lie/f_002.png"></image>
+          <text class="name">躺平</text>
+        </div>
+      </div>
+    </div>
+
+    <div class="back" onclick="back">
+      <text class="back-t">返回</text>
+    </div>
+  </div>
+</template>
+
+<style>
+  .page {
+    width: 212px;
+    height: 520px;
+    background-color: #FFF9E6;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+  }
+  .title {
+    font-size: 16px;
+    color: #3A2A0A;
+  }
+  .sub {
+    margin-top: 4px;
+    font-size: 10px;
+    color: #A89060;
+  }
+  .grid {
+    margin-top: 14px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .row {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+  .card {
+    width: 88px;
+    height: 124px;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-bottom: 12px;
+    border-radius: 16px;
+    background-color: #FFFDF5;
+    border-width: 1px;
+    border-color: #E9CE8C;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .thumb {
+    width: 80px;
+    height: 98px;
+    border-radius: 10px;
+    background-color: #FDEBB2;
+  }
+  .name {
+    margin-top: 4px;
+    font-size: 11px;
+    color: #3A2A0A;
+  }
+  .back {
+    width: 96px;
+    height: 32px;
+    margin-top: 2px;
+    border-radius: 16px;
+    background-color: #FDEBB2;
+    border-width: 1px;
+    border-color: #E9CE8C;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .back-t {
+    font-size: 12px;
+    color: #3A2A0A;
+  }
+</style>
+
+<script>
+import storage from '@system.storage'
+import router from '@system.router'
+
+export default {
+  data: {
+    tip: ''
+  },
+
+  choose(clip) {
+    storage.set({ key: 'frog_play', value: clip })
+    router.back()
+  },
+
+  pickIdle() { this.choose('idle') },
+  pickLaugh() { this.choose('laugh') },
+  pickListen() { this.choose('listen') },
+  pickLie() { this.choose('lie') },
+
+  back() {
+    router.back()
+  }
+}
+</script>

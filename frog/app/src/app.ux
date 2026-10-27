@@ -1,0 +1,10 @@
+<script>
+export default {
+  onCreate() {
+    console.log('band11-frog onCreate')
+  },
+  onDestroy() {
+    console.log('band11-frog onDestroy')
+  }
+}
+</script>

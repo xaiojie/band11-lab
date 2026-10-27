@@ -1,0 +1,9 @@
+node_modules/
+build/
+dist/
+*.rpk
+sign/debug/*.pem
+sign/debug/*.csr
+sign/release/*.pem
+sign/release/*.csr
+.DS_Store

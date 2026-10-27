@@ -1,0 +1,40 @@
+{
+  "package": "com.jay.naiwa",
+  "name": "腕上奶蛙",
+  "versionName": "0.2.0",
+  "versionCode": 2,
+  "minAPILevel": 2,
+  "icon": "/common/images/icon.png",
+  "deviceTypeList": [
+    "watch"
+  ],
+  "features": [
+    {
+      "name": "system.storage"
+    },
+    {
+      "name": "system.vibrator"
+    },
+    {
+      "name": "system.router"
+    }
+  ],
+  "config": {
+    "logLevel": "info",
+    "designWidth": 212
+  },
+  "display": {
+    "backgroundColor": "#FFF9E6"
+  },
+  "router": {
+    "entry": "pages/index",
+    "pages": {
+      "pages/index": {
+        "component": "index"
+      },
+      "pages/library": {
+        "component": "library"
+      }
+    }
+  }
+}

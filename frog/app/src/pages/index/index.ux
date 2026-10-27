@@ -1,0 +1,367 @@
+<template>
+  <div class="page">
+    <div class="top">
+      <text class="clock">{{clock}}</text>
+      <text class="date">{{dateText}}</text>
+    </div>
+
+    <div class="stage" onclick="tapFrog" onlongpress="longFrog">
+      <image class="frog" src="{{frameSrc}}"></image>
+    </div>
+
+    <div class="bubble">
+      <text class="bubble-t">{{bubble}}</text>
+    </div>
+
+    <div class="lib-btn" onclick="goLibrary">
+      <text class="lib-t">动画库</text>
+    </div>
+
+    <text class="tip">{{tip}}</text>
+  </div>
+</template>
+
+<style>
+  .page {
+    width: 212px;
+    height: 520px;
+    background-color: #FFF9E6;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+  }
+  .top {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .clock {
+    font-size: 34px;
+    color: #3A2A0A;
+  }
+  .date {
+    font-size: 12px;
+    color: #967C4A;
+    margin-top: 1px;
+  }
+  .stage {
+    width: 204px;
+    height: 246px;
+    margin-top: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .frog {
+    width: 204px;
+    height: 246px;
+    border-radius: 26px;
+    background-color: #FDEBB2;
+  }
+  .bubble {
+    width: 190px;
+    height: 36px;
+    margin-top: 12px;
+    border-radius: 17px;
+    background-color: #FFFDF5;
+    border-width: 1px;
+    border-color: #E9CE8C;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-left: 8px;
+    padding-right: 8px;
+    box-sizing: border-box;
+  }
+  .bubble-t {
+    font-size: 12px;
+    color: #3A2A0A;
+    text-align: center;
+  }
+  .lib-btn {
+    width: 96px;
+    height: 34px;
+    margin-top: 12px;
+    border-radius: 17px;
+    background-color: #FDEBB2;
+    border-width: 1px;
+    border-color: #E9CE8C;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .lib-t {
+    font-size: 13px;
+    color: #3A2A0A;
+  }
+  .tip {
+    margin-top: 10px;
+    font-size: 9px;
+    color: #A89060;
+  }
+</style>
+
+<script>
+import storage from '@system.storage'
+import vibrator from '@system.vibrator'
+import router from '@system.router'
+
+var CLIPS = {
+  idle:   { n: 19, fps: 8,  loop: true },
+  laugh:  { n: 25, fps: 10, loop: false },
+  listen: { n: 22, fps: 10, loop: false },
+  lie:    { n: 5,  fps: 6,  loop: true }
+}
+
+var LINES = {
+  laugh: [
+    '哈哈哈哈你头发又少了',
+    '笑死，你工资没我体重高',
+    '这么好笑，你老板知道吗',
+    '笑得我肚子疼，你更疼吧'
+  ],
+  listen: [
+    '说吧，反正我也帮不上',
+    '我在听，但不一定记得',
+    '你这烦恼，我听完就忘',
+    '嗯嗯，然后呢？无所谓'
+  ],
+  lie: [
+    '卷不动就躺，我教你',
+    '有事躺平，没事也躺平',
+    '别叫我，我已经出局了',
+    '躺平不是摆烂，是战略'
+  ],
+  idle: [
+    '看什么看，没见过靓蛙？',
+    '又摸鱼？我先躺了',
+    '你这步数，我趴着都比你多',
+    '摸我有用吗？能帮你还花呗？',
+    '别看了，今天也没变瘦',
+    '上班而已，别太当真'
+  ],
+  night: [
+    '这么晚还不睡，明天又要困'
+  ]
+}
+
+var WEEK = ['日', '一', '二', '三', '四', '五', '六']
+
+export default {
+  data: {
+    clock: '--:--',
+    dateText: '',
+    bubble: '看什么看，没见过靓蛙？',
+    frameSrc: '/assets/frog/idle/f_000.png',
+    tip: ''
+  },
+
+  onInit() {
+    this.frame = 0
+    this.timer = null
+    this.clockTimer = null
+    this.current = 'idle'
+    this.laughs = 0
+    this.tapCount = 0
+    this.lastTapTs = 0
+    this.streak = 0
+    this.lastDay = ''
+    this.today = ''
+    this.loadState()
+    this.tickClock()
+    this.clockTimer = setInterval(() => {
+      this.tickClock()
+    }, 15000)
+    this.boot()
+  },
+
+  onDestroy() {
+    if (this.timer) clearInterval(this.timer)
+    if (this.clockTimer) clearInterval(this.clockTimer)
+  },
+
+  onHide() {
+    if (this.timer) {
+      clearInterval(this.timer)
+      this.timer = null
+    }
+  },
+
+  onShow() {
+    var self = this
+    storage.get({
+      key: 'frog_play',
+      success: function (clip) {
+        if (clip) {
+          storage.set({ key: 'frog_play', value: '' })
+          self.trigger('' + clip)
+          return
+        }
+        if (!self.timer) self.play(self.current === 'lie' ? 'lie' : 'idle')
+      },
+      fail: function () {
+        if (!self.timer) self.play(self.current === 'lie' ? 'lie' : 'idle')
+      }
+    })
+  },
+
+  boot() {
+    var h = new Date().getHours()
+    if (this.today !== this.lastDay) {
+      this.streak = this.streak + 1
+      this.laughs = 0
+      this.lastDay = this.today
+      this.play('idle')
+      this.bubble = '欸，又是你？第 ' + this.streak + ' 天了'
+      this.saveState()
+    } else if (h >= 23 || h < 5) {
+      this.play('lie')
+      this.bubble = LINES.night[0]
+    } else {
+      this.play('idle')
+    }
+    this.refreshTip()
+  },
+
+  tickClock() {
+    var d = new Date()
+    var hh = d.getHours()
+    var mm = d.getMinutes()
+    this.clock = (hh < 10 ? '0' + hh : '' + hh) + ':' + (mm < 10 ? '0' + mm : '' + mm)
+    this.dateText = (d.getMonth() + 1) + '月' + d.getDate() + '日 周' + WEEK[d.getDay()]
+    this.today = '' + d.getFullYear() + d.getMonth() + d.getDate()
+    this.refreshTip()
+  },
+
+  refreshTip() {
+    this.tip = '今日笑 ' + this.laughs + ' 次 · 连续陪伴 ' + this.streak + ' 天'
+  },
+
+  framePath(clip, i) {
+    var s = '' + i
+    while (s.length < 3) s = '0' + s
+    return '/assets/frog/' + clip + '/f_' + s + '.png'
+  },
+
+  play(clip) {
+    var c = CLIPS[clip]
+    if (!c) return
+    if (this.timer) {
+      clearInterval(this.timer)
+      this.timer = null
+    }
+    this.current = clip
+    this.frame = 0
+    this.frameSrc = this.framePath(clip, 0)
+    var self = this
+    this.timer = setInterval(function () {
+      self.frame = self.frame + 1
+      if (self.frame >= c.n) {
+        if (c.loop) {
+          self.frame = 0
+        } else {
+          clearInterval(self.timer)
+          self.timer = null
+          self.play(self.current === 'lie' ? 'lie' : 'idle')
+          return
+        }
+      }
+      self.frameSrc = self.framePath(clip, self.frame)
+    }, Math.round(1000 / c.fps))
+  },
+
+  buzz(mode) {
+    try {
+      vibrator.vibrate({ mode: mode || 'short' })
+    } catch (e) {
+      console.log('vibrate fail', e)
+    }
+  },
+
+  pick(arr) {
+    return arr[Math.floor(Math.random() * arr.length)]
+  },
+
+  trigger(clip) {
+    if (!CLIPS[clip]) clip = 'laugh'
+    if (clip === 'idle') {
+      this.bubble = this.pick(LINES.idle)
+      this.play('idle')
+      return
+    }
+    if (clip === 'lie') {
+      this.bubble = this.pick(LINES.lie)
+      this.play('lie')
+      return
+    }
+    if (clip === 'laugh') {
+      this.laughs = this.laughs + 1
+      this.refreshTip()
+      this.saveState()
+    }
+    this.bubble = this.pick(LINES[clip] || LINES.laugh)
+    this.play(clip)
+    this.buzz('short')
+  },
+
+  tapFrog() {
+    var now = Date.now()
+    if (now - this.lastTapTs > 2500) this.tapCount = 0
+    this.tapCount = this.tapCount + 1
+    this.lastTapTs = now
+
+    if (this.tapCount >= 7) {
+      this.bubble = '别戳了，我又不是按钮'
+      this.buzz('short')
+      return
+    }
+    if (this.tapCount === 1) {
+      this.trigger('laugh')
+      return
+    }
+    // 连点：在除待机外的动作里随机，且不重复当前
+    var pool = ['laugh', 'listen', 'lie']
+    var next = this.current
+    while (next === this.current) {
+      next = pool[Math.floor(Math.random() * pool.length)]
+    }
+    this.trigger(next)
+  },
+
+  longFrog() {
+    this.trigger('lie')
+    this.buzz('long')
+  },
+
+  goLibrary() {
+    router.push({ uri: '/pages/library' })
+  },
+
+  saveState() {
+    storage.set({
+      key: 'frog_state',
+      value: JSON.stringify({ l: this.laughs, s: this.streak, d: this.lastDay })
+    })
+  },
+
+  loadState() {
+    var self = this
+    storage.get({
+      key: 'frog_state',
+      success: function (data) {
+        if (!data) return
+        try {
+          var o = JSON.parse(data)
+          self.laughs = o.l || 0
+          self.streak = o.s || 0
+          self.lastDay = o.d || ''
+        } catch (e) {
+          console.log('state parse fail', e)
+        }
+      }
+    })
+  }
+}
+</script>
